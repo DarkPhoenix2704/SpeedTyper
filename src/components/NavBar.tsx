@@ -26,7 +26,7 @@ const NavBar = () => {
             justifyContent="space-between"
             paddingInline="16px"
             backgroundColor="#141414"
-            width="100wh"
+            width="100vw"
         >
             <HStack>
                 <Image height="60px" src={logo} alt="logo" />
