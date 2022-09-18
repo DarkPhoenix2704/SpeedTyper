@@ -16,8 +16,8 @@ const NavBar = () => {
     };
 
     useEffect(() => {
-        localStorage.getItem('user');
         setUser(JSON.parse(localStorage.getItem('user') || ''));
+        if (!user) navigate('/login');
     }, []);
 
     return (
