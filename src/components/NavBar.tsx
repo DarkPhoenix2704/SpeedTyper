@@ -8,7 +8,7 @@ import Profile from '../modal/Profile';
 
 const NavBar = () => {
     const [{ error }, signOut] = useSignOut();
-    const [data, signIn] = useSignIn();
+    const [, signIn] = useSignIn();
     const [userL, setUserL] = useState<User | null>(null);
     const navigate = useNavigate();
     const { isOpen, onOpen, onClose } = useDisclosure();
