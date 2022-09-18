@@ -6,8 +6,10 @@ import dart from '../../../assets/icons/dart.png';
 import timer from '../../../assets/icons/timer.png';
 import words from '../../../assets/icons/words.png';
 import Word from '../../components/Word';
+import { useTyper } from '../../context/typer';
 
 const Home = () => {
+    const { time, wpm, accuracy, setTime, setWords, setAccuracy, setStarted } = useTyper();
     const sentence = [
         'In',
         'linguistics',
@@ -49,9 +51,9 @@ const Home = () => {
         <VStack width="100vw" bg="#141414">
             <NavBar />
             <HStack spacing="32px">
-                <Card image={dart} heading="Accuracy" content="90%" />
-                <Card image={timer} heading="Timer" content={String(156)} />
-                <Card image={words} heading="Words/min" content="95" />
+                <Card image={dart} heading="Accuracy" content={`${accuracy}%`} />
+                <Card image={timer} heading="Timer" content={`${time}`} />
+                <Card image={words} heading="Words/min" content={`${wpm}`} />
             </HStack>
             <Box>
                 <HStack
