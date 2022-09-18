@@ -9,45 +9,9 @@ import Word from '../../components/Word';
 import { useTyper } from '../../context/typer';
 
 const Home = () => {
-    const { time, wpm, accuracy, started, setWords, setStarted, setGrossWords } = useTyper();
+    const { time, wpm, accuracy, started, setWords, setStarted, setGrossWords, sentence } =
+        useTyper();
     const [string, setString] = useState('');
-    const sentence = [
-        'In',
-        'linguistics',
-        'and',
-        'grammar,',
-        'a',
-        'sentence',
-        'is',
-        'a',
-        'linguistic',
-        'expression,',
-        'such',
-        'as',
-        'the',
-        'English',
-        'example',
-        '/"The',
-        'quick',
-        'brown',
-        'fox',
-        'jumps',
-        'over',
-        'the',
-        'lazy',
-        'dog./"',
-        'In',
-        'traditional',
-        'grammar,',
-        'it',
-        'is',
-        'typically',
-        'defined',
-        'as',
-        'a',
-        'string',
-        'of',
-    ];
     useEffect(() => {
         const wordsSe = string.split(' ');
         let score = 0;
@@ -79,7 +43,7 @@ const Home = () => {
                     marginInline="36px"
                     spacing="8px"
                 >
-                    {sentence.map((word, index) => (
+                    {sentence.map((word: string, index: number) => (
                         // eslint-disable-next-line react/no-array-index-key
                         <Word content={word} key={index} />
                     ))}

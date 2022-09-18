@@ -42,6 +42,7 @@
     "@chakra-ui/react": "^2.2.8",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
+    "@faker-js/faker": "^7.5.0",
     "@fontsource/poppins": "^4.5.9",
     "@supabase/supabase-js": "^1.35.6",
     "framer-motion": "^7.2.0",

@@ -1,4 +1,5 @@
 import React, { useState, createContext, useEffect, useContext } from 'react';
+import { faker } from '@faker-js/faker';
 
 const TyperContext = createContext<any>({});
 
@@ -10,6 +11,10 @@ export const TyperProvider = ({ children }: { children: React.ReactNode }) => {
     const [words, setWords] = useState<number>(0);
     const [grossWords, setGrossWords] = useState<number>(0);
     const [started, setStarted] = useState<boolean>(false);
+    const [sentence, setSentence] = useState<string[]>([]);
+    useEffect(() => {
+        setSentence(faker.random.words(40).split(' '));
+    }, []);
 
     useEffect(() => {
         const temp = words / ((90 - time) / 60);
@@ -41,6 +46,7 @@ export const TyperProvider = ({ children }: { children: React.ReactNode }) => {
                 wpm,
                 accuracy,
                 started,
+                sentence,
                 setTime,
                 setWords,
                 setAccuracy,
