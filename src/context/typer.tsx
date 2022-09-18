@@ -12,18 +12,23 @@ export const TyperProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         const temp = words / ((90 - time) / 60);
-        setWpm(temp);
+        setWpm(Math.round(temp) || 0);
     }, [words, time]);
 
     useEffect(() => {
         if (started) {
             const interval = setInterval(() => {
-                setTime((prev) => prev - 1);
+                if (time > 0) {
+                    setTime(time - 1);
+                }
+                if (time === 0) {
+                    clearInterval(interval);
+                }
             }, 1000);
             return () => clearInterval(interval);
         }
         return () => {};
-    }, [started]);
+    }, [started, time]);
 
     return (
         <TyperContext.Provider
