@@ -1,5 +1,5 @@
 import { HStack, VStack, Box, Textarea } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '../../components/Card';
 import NavBar from '../../components/NavBar';
 import dart from '../../../assets/icons/dart.png';
@@ -9,7 +9,8 @@ import Word from '../../components/Word';
 import { useTyper } from '../../context/typer';
 
 const Home = () => {
-    const { time, wpm, accuracy, setTime, setWords, setAccuracy, setStarted } = useTyper();
+    const { time, wpm, accuracy, started, setWords, setAccuracy, setStarted } = useTyper();
+    const [string, setString] = useState('');
     const sentence = [
         'In',
         'linguistics',
@@ -47,6 +48,17 @@ const Home = () => {
         'string',
         'of',
     ];
+    useEffect(() => {
+        const wordsSe = string.split(' ');
+        let score = 0;
+        wordsSe.forEach((word, index) => {
+            if (word === sentence[index]) {
+                score += 1;
+            }
+        });
+        setWords(score);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [string]);
     return (
         <VStack width="100vw" bg="#141414">
             <NavBar />
@@ -82,8 +94,18 @@ const Home = () => {
                     textColor="#fff"
                     fontSize="24px"
                     height="250px"
+                    disabled={time <= 0}
                     placeholder="Type here..."
                     _placeholder={{ textColor: '#D9D9D9' }}
+                    onChange={(e: any) => {
+                        setString(e.target.value);
+                        if (!started) {
+                            setStarted(true);
+                        }
+                    }}
+                    onFocus={() => {
+                        if (!started) setStarted(true);
+                    }}
                 />
             </Box>
         </VStack>
