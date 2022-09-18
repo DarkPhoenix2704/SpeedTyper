@@ -11,13 +11,15 @@ const NavBar = () => {
     const navigate = useNavigate();
     const logout = async () => {
         await signOut();
+        localStorage.removeItem('user');
         if (error) throw error;
         navigate('/login');
     };
 
     useEffect(() => {
-        setUser(JSON.parse(localStorage.getItem('user') || ''));
-        if (!user) navigate('/login');
+        const locUser = localStorage.getItem('user');
+        if (!locUser) navigate('/login');
+        setUser(JSON.parse(localStorage.getItem('user')));
     }, []);
 
     return (
