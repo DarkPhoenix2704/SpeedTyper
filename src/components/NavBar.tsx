@@ -18,7 +18,7 @@ const NavBar = () => {
         if (error) throw error;
     };
     const login = async () => {
-        await signIn(
+        const signInData = await signIn(
             {
                 provider: 'github',
             },
@@ -26,8 +26,8 @@ const NavBar = () => {
                 scopes: 'read:user',
             },
         );
-        if (data.error) throw error;
-        setUserL(data?.user);
+        if (signInData.error) throw error;
+        setUserL(signInData?.user);
     };
     useEffect(() => {
         const user = client.auth.user();
