@@ -15,7 +15,7 @@ export const TyperProvider = ({ children }: { children: React.ReactNode }) => {
         const temp = words / ((90 - time) / 60);
         setWpm(Math.round(temp) || 0);
         const gwpm = grossWords / ((90 - time) / 60);
-        setAccuracy(Math.round((temp / gwpm) * 100) || 100);
+        setAccuracy(Math.round((temp / gwpm) * 100) || 0);
     }, [words, time, grossWords]);
 
     useEffect(() => {
