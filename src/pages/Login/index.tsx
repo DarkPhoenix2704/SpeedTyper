@@ -20,6 +20,7 @@ const Login = () => {
         });
 
         if (user) {
+            localStorage.setItem('user', JSON.stringify(user));
             navigate('/');
         }
         setIsInvalid(true);

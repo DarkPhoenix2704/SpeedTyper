@@ -1,17 +1,24 @@
 import { Avatar, Flex, HStack, Image, VStack, Text } from '@chakra-ui/react';
 import { useSignOut } from 'react-supabase';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { User } from '@supabase/supabase-js';
 import logo from '../../assets/favicon.svg';
 
 const NavBar = () => {
     const [{ error }, signOut] = useSignOut();
+    const [user, setUser] = useState<User | null>(null);
     const navigate = useNavigate();
     const logout = async () => {
         await signOut();
         if (error) throw error;
         navigate('/login');
     };
+
+    useEffect(() => {
+        localStorage.getItem('user');
+        setUser(JSON.parse(localStorage.getItem('user') || ''));
+    }, []);
 
     return (
         <Flex
@@ -26,9 +33,9 @@ const NavBar = () => {
                 <Text fontSize="24px">SpeedTyper</Text>
             </HStack>
             <HStack marginBlock="2px">
-                <Avatar name="Elizabeth Olsen" />
+                <Avatar name={user?.email} />
                 <VStack fontSize="14px" paddingBlock="8px">
-                    <Text>Elizabeth Olsen</Text>
+                    <Text>{user?.email}</Text>
                     <Text color="#D9D9D9" onClick={logout}>
                         Logout
                     </Text>
