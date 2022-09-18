@@ -9,7 +9,7 @@ import Word from '../../components/Word';
 import { useTyper } from '../../context/typer';
 
 const Home = () => {
-    const { time, wpm, accuracy, started, setWords, setAccuracy, setStarted } = useTyper();
+    const { time, wpm, accuracy, started, setWords, setStarted, setGrossWords } = useTyper();
     const [string, setString] = useState('');
     const sentence = [
         'In',
@@ -51,12 +51,14 @@ const Home = () => {
     useEffect(() => {
         const wordsSe = string.split(' ');
         let score = 0;
+        setGrossWords(wordsSe.length);
         wordsSe.forEach((word, index) => {
             if (word === sentence[index]) {
                 score += 1;
             }
         });
         setWords(score);
+        if (wordsSe.length === sentence.length) setStarted(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [string]);
     return (

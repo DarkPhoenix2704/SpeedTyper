@@ -8,12 +8,15 @@ export const TyperProvider = ({ children }: { children: React.ReactNode }) => {
     const [wpm, setWpm] = useState<number>(0);
     const [accuracy, setAccuracy] = useState<number>(0);
     const [words, setWords] = useState<number>(0);
+    const [grossWords, setGrossWords] = useState<number>(0);
     const [started, setStarted] = useState<boolean>(false);
 
     useEffect(() => {
         const temp = words / ((90 - time) / 60);
         setWpm(Math.round(temp) || 0);
-    }, [words, time]);
+        const gwpm = grossWords / ((90 - time) / 60);
+        setAccuracy(Math.round((temp / gwpm) * 100) || 100);
+    }, [words, time, grossWords]);
 
     useEffect(() => {
         if (started) {
@@ -33,7 +36,17 @@ export const TyperProvider = ({ children }: { children: React.ReactNode }) => {
     return (
         <TyperContext.Provider
             // eslint-disable-next-line react/jsx-no-constructed-context-values
-            value={{ time, wpm, accuracy, started, setTime, setWords, setAccuracy, setStarted }}
+            value={{
+                time,
+                wpm,
+                accuracy,
+                started,
+                setTime,
+                setWords,
+                setAccuracy,
+                setStarted,
+                setGrossWords,
+            }}
         >
             {children}
         </TyperContext.Provider>
