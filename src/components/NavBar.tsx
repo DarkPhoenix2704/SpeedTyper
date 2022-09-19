@@ -39,7 +39,7 @@ const NavBar = () => {
     });
     return (
         <>
-            <Profile isOpen={isOpen} onClose={onClose} user={userL} />
+            <Profile isOpen={isOpen} onClose={onClose} />
             <Flex
                 textColor="#FFFFFF"
                 justifyContent="space-between"
