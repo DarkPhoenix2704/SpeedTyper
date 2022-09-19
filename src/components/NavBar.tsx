@@ -5,13 +5,23 @@ import { useNavigate } from 'react-router-dom';
 import { User } from '@supabase/supabase-js';
 import logo from '../../assets/favicon.svg';
 import Profile from '../modal/Profile';
+import Leaderboard from '../modal/Leaderboard';
 
 const NavBar = () => {
     const [{ error }, signOut] = useSignOut();
     const [, signIn] = useSignIn();
     const [userL, setUserL] = useState<User | null>(null);
     const navigate = useNavigate();
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const {
+        isOpen: isOpenProfileModal,
+        onOpen: onOpenProfileModal,
+        onClose: onCloseProfileModal,
+    } = useDisclosure();
+    const {
+        isOpen: isOpenLeaderboardModal,
+        onOpen: onOpenLeaderboardModal,
+        onClose: onCloseLeaderboardModal,
+    } = useDisclosure();
     const client = useClient();
     const logout = async () => {
         await signOut();
@@ -39,7 +49,8 @@ const NavBar = () => {
     });
     return (
         <>
-            <Profile isOpen={isOpen} onClose={onClose} />
+            <Profile isOpen={isOpenProfileModal} onClose={onCloseProfileModal} />
+            <Leaderboard isOpen={isOpenLeaderboardModal} onClose={onCloseLeaderboardModal} />
             <Flex
                 textColor="#FFFFFF"
                 justifyContent="space-between"
@@ -57,7 +68,7 @@ const NavBar = () => {
                         cursor="pointer"
                         onClick={(event) => {
                             event.preventDefault();
-                            navigate('/leaderboard');
+                            onOpenLeaderboardModal();
                         }}
                     >
                         Leaderboard
@@ -81,7 +92,7 @@ const NavBar = () => {
                                 cursor="pointer"
                                 onClick={(event) => {
                                     event.preventDefault();
-                                    onOpen();
+                                    onOpenProfileModal();
                                 }}
                             >
                                 Profile
