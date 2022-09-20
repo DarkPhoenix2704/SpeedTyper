@@ -34,7 +34,7 @@ const Leaderboard = ({ isOpen, onClose }: LeaderboardModalProps) => {
         return () => {};
     }, [client]);
     return (
-        <Modal onClose={onClose} isOpen={isOpen} isCentered>
+        <Modal onClose={onClose} isOpen={isOpen} size="xl" isCentered>
             <ModalOverlay />
             <ModalContent bg="#282828" color="#fff">
                 <ModalHeader>LeaderBoard</ModalHeader>
