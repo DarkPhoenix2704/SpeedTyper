@@ -1,6 +1,5 @@
 import {
     Button,
-    Input,
     Modal,
     ModalBody,
     ModalCloseButton,
@@ -9,20 +8,28 @@ import {
     ModalHeader,
     ModalOverlay,
 } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useClient } from 'react-supabase';
+import LeaderBoardCard from '../../components/LeaderboardCard';
 
 const Leaderboard = ({ isOpen, onClose }: LeaderboardModalProps) => {
     const client = useClient();
+    const [leaders, setLeaders] = useState([]);
     useEffect(() => {
         (async () => {
-            // Query is incorrect
             const { data, error } = await client
                 .from('typing_data')
-                .select('name, email')
-                .match({ id: client.auth.user()?.id });
+                .select(
+                    `wpm, users(
+                name, email
+            )`,
+                )
+                .limit(10)
+                .order('wpm', { ascending: false });
+
             // eslint-disable-next-line @typescript-eslint/no-throw-literal
             if (error) throw error;
+            setLeaders(data);
         })();
         return () => {};
     }, [client]);
@@ -32,7 +39,12 @@ const Leaderboard = ({ isOpen, onClose }: LeaderboardModalProps) => {
             <ModalContent bg="#282828" color="#fff">
                 <ModalHeader>LeaderBoard</ModalHeader>
                 <ModalCloseButton />
-                <ModalBody>This is Leaderboard</ModalBody>
+                <ModalBody>
+                    {leaders.map((leader, index) => (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <LeaderBoardCard key={index} leader={leader} index={index} />
+                    ))}
+                </ModalBody>
                 <ModalFooter>
                     <Button
                         size="lg"
