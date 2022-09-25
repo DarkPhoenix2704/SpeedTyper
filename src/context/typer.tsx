@@ -10,7 +10,6 @@ export const TyperProvider = ({ children }: { children: React.ReactNode }) => {
     const [wpm, setWpm] = useState<number>(0);
     const [accuracy, setAccuracy] = useState<number>(0);
     const [words, setWords] = useState<number>(0);
-
     const [correctIndex, setCorrectIndex] = useState<Array<number>>([]);
     const [wrongIndex, setWrongIndex] = useState<Array<number>>([]);
     const [activeIndex, setActiveIndex] = useState<number>(0);
