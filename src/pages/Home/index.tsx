@@ -1,4 +1,4 @@
-import { HStack, VStack, Box, Textarea } from '@chakra-ui/react';
+import { HStack, VStack, Box, Textarea, useDisclosure } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import Card from '../../components/Card';
 import NavBar from '../../components/NavBar';
@@ -7,6 +7,7 @@ import timer from '../../../assets/icons/timer.png';
 import words from '../../../assets/icons/words.png';
 import Word from '../../components/Word';
 import { useTyper } from '../../context/typer';
+import WelcomeModal from '../../modal/Welcome';
 
 const Home = () => {
     const {
@@ -23,6 +24,11 @@ const Home = () => {
         setWrongIndex,
     } = useTyper();
     const [string, setString] = useState('');
+    const {
+        isOpen: isOpenWelcomeModal,
+        onOpen: onOpenWelcomeModal,
+        onClose: onCloseWelcomeModal,
+    } = useDisclosure();
     useEffect(() => {
         let score = 0;
         const correctIndex: number[] = [];
@@ -44,56 +50,63 @@ const Home = () => {
         if (wordsSe.length === sentence.length) setStarted(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [string]);
+    useEffect(() => {
+        onOpenWelcomeModal();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     return (
-        <VStack width="100vw" bg="#141414">
-            <NavBar />
-            <HStack spacing="32px">
-                <Card image={dart} heading="Accuracy" content={`${accuracy}%`} />
-                <Card image={timer} heading="Timer" content={`${time}`} />
-                <Card image={words} heading="Words/min" content={`${wpm}`} />
-            </HStack>
-            <Box>
-                <HStack
-                    borderRadius="8px"
-                    paddingBlock="16px"
-                    justifyContent="center"
-                    backgroundColor="#282828"
-                    wrap="wrap"
-                    marginInline="36px"
-                    spacing="8px"
-                >
-                    {sentence.map((word: string, index: number) => (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <Word content={word} key={index} index={index} />
-                    ))}
+        <>
+            <WelcomeModal isOpen={isOpenWelcomeModal} onClose={onCloseWelcomeModal} />
+            <VStack width="100vw" bg="#141414">
+                <NavBar />
+                <HStack spacing="32px">
+                    <Card image={dart} heading="Accuracy" content={`${accuracy}%`} />
+                    <Card image={timer} heading="Timer" content={`${time}`} />
+                    <Card image={words} heading="Words/min" content={`${wpm}`} />
                 </HStack>
-            </Box>
-            <Box>
-                <Textarea
-                    borderRadius="8px"
-                    paddingBlock="16px"
-                    justifyContent="center"
-                    width="1250px"
-                    backgroundColor="#282828"
-                    border="0px"
-                    textColor="#fff"
-                    fontSize="24px"
-                    height="250px"
-                    disabled={time <= 0}
-                    placeholder="Type here..."
-                    _placeholder={{ textColor: '#D9D9D9' }}
-                    onChange={(e: any) => {
-                        setString(e.target.value);
-                        if (!started) {
-                            setStarted(true);
-                        }
-                    }}
-                    onFocus={() => {
-                        if (!started) setStarted(true);
-                    }}
-                />
-            </Box>
-        </VStack>
+                <Box>
+                    <HStack
+                        borderRadius="8px"
+                        paddingBlock="16px"
+                        justifyContent="center"
+                        backgroundColor="#282828"
+                        wrap="wrap"
+                        marginInline="36px"
+                        spacing="8px"
+                    >
+                        {sentence.map((word: string, index: number) => (
+                            // eslint-disable-next-line react/no-array-index-key
+                            <Word content={word} key={index} index={index} />
+                        ))}
+                    </HStack>
+                </Box>
+                <Box>
+                    <Textarea
+                        borderRadius="8px"
+                        paddingBlock="16px"
+                        justifyContent="center"
+                        width="1250px"
+                        backgroundColor="#282828"
+                        border="0px"
+                        textColor="#fff"
+                        fontSize="24px"
+                        height="250px"
+                        disabled={time <= 0}
+                        placeholder="Type here..."
+                        _placeholder={{ textColor: '#D9D9D9' }}
+                        onChange={(e: any) => {
+                            setString(e.target.value);
+                            if (!started) {
+                                setStarted(true);
+                            }
+                        }}
+                        onFocus={() => {
+                            if (!started) setStarted(true);
+                        }}
+                    />
+                </Box>
+            </VStack>
+        </>
     );
 };
 
