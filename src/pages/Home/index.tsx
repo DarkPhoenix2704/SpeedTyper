@@ -9,18 +9,37 @@ import Word from '../../components/Word';
 import { useTyper } from '../../context/typer';
 
 const Home = () => {
-    const { time, wpm, accuracy, started, setWords, setStarted, setGrossWords, sentence } =
-        useTyper();
+    const {
+        time,
+        wpm,
+        accuracy,
+        started,
+        setWords,
+        setStarted,
+        setGrossWords,
+        sentence,
+        setActiveIndex,
+        setCorrectIndex,
+        setWrongIndex,
+    } = useTyper();
     const [string, setString] = useState('');
     useEffect(() => {
-        const wordsSe = string.split(' ');
         let score = 0;
+        const correctIndex: number[] = [];
+        const wrongIndex: number[] = [];
+        const wordsSe = string.split(' ');
         setGrossWords(wordsSe.length);
         wordsSe.forEach((word, index) => {
             if (word === sentence[index]) {
                 score += 1;
+                correctIndex.push(index);
+            } else {
+                wrongIndex.push(index);
             }
         });
+        setCorrectIndex(correctIndex);
+        setWrongIndex(wrongIndex);
+        setActiveIndex(wordsSe.length - 1);
         setWords(score);
         if (wordsSe.length === sentence.length) setStarted(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,7 +64,7 @@ const Home = () => {
                 >
                     {sentence.map((word: string, index: number) => (
                         // eslint-disable-next-line react/no-array-index-key
-                        <Word content={word} key={index} />
+                        <Word content={word} key={index} index={index} />
                     ))}
                 </HStack>
             </Box>

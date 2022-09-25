@@ -10,6 +10,10 @@ export const TyperProvider = ({ children }: { children: React.ReactNode }) => {
     const [wpm, setWpm] = useState<number>(0);
     const [accuracy, setAccuracy] = useState<number>(0);
     const [words, setWords] = useState<number>(0);
+
+    const [correctIndex, setCorrectIndex] = useState<Array<number>>([]);
+    const [wrongIndex, setWrongIndex] = useState<Array<number>>([]);
+    const [activeIndex, setActiveIndex] = useState<number>(0);
     const [grossWords, setGrossWords] = useState<number>(0);
     const [started, setStarted] = useState<boolean>(false);
     const [sentence, setSentence] = useState<string[]>([]);
@@ -62,12 +66,18 @@ export const TyperProvider = ({ children }: { children: React.ReactNode }) => {
                 wpm,
                 accuracy,
                 started,
+                correctIndex,
+                wrongIndex,
+                activeIndex,
                 sentence,
                 setTime,
                 setWords,
                 setAccuracy,
                 setStarted,
                 setGrossWords,
+                setCorrectIndex,
+                setWrongIndex,
+                setActiveIndex,
             }}
         >
             {children}
