@@ -10,7 +10,7 @@ import Leaderboard from '../modal/Leaderboard';
 const NavBar = () => {
     const [{ error }, signOut] = useSignOut();
     const [, signIn] = useSignIn();
-    const [userL, setUserL] = useState<User | null>(null);
+    const [userL, setUserL] = useState<User | null | undefined>(null);
     const navigate = useNavigate();
     const {
         isOpen: isOpenProfileModal,
@@ -36,6 +36,7 @@ const NavBar = () => {
                 scopes: 'read:user',
             },
         );
+        // eslint-disable-next-line @typescript-eslint/no-throw-literal
         if (signInData.error) throw error;
         setUserL(signInData?.user);
     };
@@ -55,8 +56,8 @@ const NavBar = () => {
                 textColor="#FFFFFF"
                 justifyContent="space-between"
                 paddingInline="16px"
+                width={{ base: 'full', lg: 'container.xl' }}
                 backgroundColor="#141414"
-                width="100vw"
             >
                 <HStack>
                     <Image height="60px" src={logo} alt="logo" />

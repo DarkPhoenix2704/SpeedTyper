@@ -14,7 +14,7 @@ import LeaderBoardCard from '../../components/LeaderboardCard';
 
 const Leaderboard = ({ isOpen, onClose }: LeaderboardModalProps) => {
     const client = useClient();
-    const [leaders, setLeaders] = useState([]);
+    const [leaders, setLeaders] = useState<Array<LeaderProps>>([]);
     useEffect(() => {
         (async () => {
             const { data, error } = await client
@@ -67,6 +67,13 @@ const Leaderboard = ({ isOpen, onClose }: LeaderboardModalProps) => {
 interface LeaderboardModalProps {
     isOpen: boolean;
     onClose: () => void;
+}
+interface LeaderProps {
+    users: {
+        name: string;
+        email: string;
+    };
+    wpm: number;
 }
 
 export default Leaderboard;

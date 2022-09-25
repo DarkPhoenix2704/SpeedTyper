@@ -21,7 +21,7 @@ export const TyperProvider = ({ children }: { children: React.ReactNode }) => {
         if (!client.auth.user()) return;
         const { error } = await client.from('typing_data').insert([
             {
-                user_id: client.auth.user().id,
+                user_id: client.auth.user()?.id,
                 wpm,
                 accuracy,
             },

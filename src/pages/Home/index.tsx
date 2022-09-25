@@ -8,6 +8,7 @@ import words from '../../../assets/icons/words.png';
 import Word from '../../components/Word';
 import { useTyper } from '../../context/typer';
 import WelcomeModal from '../../modal/Welcome';
+import { Layout } from '../../layout';
 
 const Home = () => {
     const {
@@ -55,9 +56,9 @@ const Home = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
-        <>
+        <Layout>
             <WelcomeModal isOpen={isOpenWelcomeModal} onClose={onCloseWelcomeModal} />
-            <VStack width="100vw" bg="#141414">
+            <VStack bg="#141414">
                 <NavBar />
                 <HStack spacing="32px">
                     <Card image={dart} heading="Accuracy" content={`${accuracy}%`} />
@@ -106,7 +107,7 @@ const Home = () => {
                     />
                 </Box>
             </VStack>
-        </>
+        </Layout>
     );
 };
 
