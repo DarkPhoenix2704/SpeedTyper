@@ -3,7 +3,6 @@ import { faker } from '@faker-js/faker';
 import { useClient } from 'react-supabase';
 
 const TyperContext = createContext<any>({});
-
 export const useTyper = () => useContext(TyperContext);
 export const TyperProvider = ({ children }: { children: React.ReactNode }) => {
     const [time, setTime] = useState<number>(90);
@@ -19,6 +18,7 @@ export const TyperProvider = ({ children }: { children: React.ReactNode }) => {
     const client = useClient();
 
     const sentServer = async () => {
+        if (!client.auth.user()) return;
         const { error } = await client.from('typing_data').insert([
             {
                 user_id: client.auth.user().id,

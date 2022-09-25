@@ -26,7 +26,11 @@ const WelcomeModal = ({ isOpen, onClose }: WelcomeModalProps) => (
             <ModalBody>
                 <Text fontSize="16px">
                     Speed<span style={{ color: '#FFD700' }}>Typing</span> is a web app that helps
-                    you to improve your typing speed and accuracy.
+                    you to improve your typing speed and accuracy developed by{' '}
+                    <Link textColor="#E34144" href="https://github.com/DarkPhoenix2704">
+                        DarkPhoenix2704
+                    </Link>
+                    .
                 </Text>
                 <Text align="center" fontSize="16px" marginTop="16px">
                     Please give a star to this project on{' '}
