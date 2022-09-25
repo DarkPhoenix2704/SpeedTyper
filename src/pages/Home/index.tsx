@@ -1,5 +1,5 @@
 import { HStack, VStack, Box, Textarea, useDisclosure } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { lazy, useEffect, useState } from 'react';
 import Card from '../../components/Card';
 import NavBar from '../../components/NavBar';
 import dart from '../../../assets/icons/dart.png';
@@ -7,9 +7,9 @@ import timer from '../../../assets/icons/timer.png';
 import words from '../../../assets/icons/words.png';
 import Word from '../../components/Word';
 import { useTyper } from '../../context/typer';
-import WelcomeModal from '../../modal/Welcome';
 import { Layout } from '../../layout';
 
+const WelcomeModal = lazy(() => import('../../modal/Welcome'));
 const Home = () => {
     const {
         time,

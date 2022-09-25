@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
@@ -60,7 +61,11 @@ const config = {
 module.exports = () => {
     if (isProduction) {
         config.mode = 'production';
-        config.optimization = { splitChunks: { chunks: 'all' } };
+        config.optimization = {
+            splitChunks: { chunks: 'all' },
+            minimize: true,
+            minimizer: [new TerserPlugin()],
+        };
         config.plugins.push(new CleanWebpackPlugin());
         config.plugins.push(new MiniCssExtractPlugin({ filename: 'bundle.[contenthash].css' }));
     } else {

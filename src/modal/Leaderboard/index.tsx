@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { useClient } from 'react-supabase';
 import LeaderBoardCard from '../../components/LeaderboardCard';
 
-const Leaderboard = ({ isOpen, onClose }: LeaderboardModalProps) => {
+const LeaderboardModal = ({ isOpen, onClose }: LeaderboardModalProps) => {
     const client = useClient();
     const [leaders, setLeaders] = useState<Array<LeaderProps>>([]);
     useEffect(() => {
@@ -76,4 +76,4 @@ interface LeaderProps {
     wpm: number;
 }
 
-export default Leaderboard;
+export default LeaderboardModal;

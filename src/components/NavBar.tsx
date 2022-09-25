@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User } from '@supabase/supabase-js';
 import logo from '../../assets/favicon.svg';
-import Profile from '../modal/Profile';
-import Leaderboard from '../modal/Leaderboard';
 
+const ProfileModal = React.lazy(() => import('../modal/Profile'));
+const LeaderboardModal = React.lazy(() => import('../modal/Leaderboard'));
 const NavBar = () => {
     const [{ error }, signOut] = useSignOut();
     const [, signIn] = useSignIn();
@@ -50,8 +50,8 @@ const NavBar = () => {
     });
     return (
         <>
-            <Profile isOpen={isOpenProfileModal} onClose={onCloseProfileModal} />
-            <Leaderboard isOpen={isOpenLeaderboardModal} onClose={onCloseLeaderboardModal} />
+            <ProfileModal isOpen={isOpenProfileModal} onClose={onCloseProfileModal} />
+            <LeaderboardModal isOpen={isOpenLeaderboardModal} onClose={onCloseLeaderboardModal} />
             <Flex
                 textColor="#FFFFFF"
                 justifyContent="space-between"

@@ -12,7 +12,7 @@ import {
 import React, { useEffect } from 'react';
 import { useClient } from 'react-supabase';
 
-const Profile = ({ isOpen, onClose }: ProfileModalProps) => {
+const ProfileModal = ({ isOpen, onClose }: ProfileModalProps) => {
     const [name, setName] = React.useState('');
     const [email, setEmail] = React.useState('');
     const client = useClient();
@@ -90,4 +90,4 @@ interface ProfileModalProps {
     onClose: () => void;
 }
 
-export default Profile;
+export default ProfileModal;
